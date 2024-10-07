@@ -1,11 +1,15 @@
 #include "chowdsp_ParameterTypes.h"
 
+#include <utility>
+
 namespace chowdsp
 {
 FloatParameter::FloatParameter (const ParameterID& parameterID,
                                 const juce::String& parameterName,
                                 const juce::NormalisableRange<float>& valueRange,
                                 float defaultFloatValue,
+                                std::atomic<float>* valuePtr,
+                                const std::function<void (void*, float)>& setterFunc,
                                 const std::function<juce::String (float)>& valueToTextFunction,
                                 std::function<float (const juce::String&)>&& textToValueFunction)
 #if JUCE_VERSION < 0x070000
@@ -27,6 +31,7 @@ FloatParameter::FloatParameter (const ParameterID& parameterID,
         parameterName,
         valueRange,
         defaultFloatValue,
+        valuePtr,
         juce::AudioParameterFloatAttributes()
             .withStringFromValueFunction (
                 [valueToTextFunction] (float v, int)
@@ -36,6 +41,7 @@ FloatParameter::FloatParameter (const ParameterID& parameterID,
       unsnappedDefault (valueRange.convertTo0to1 (defaultFloatValue)),
       normalisableRange (valueRange)
 {
+    setFunc = std::move(setterFunc);
 }
 
 void FloatParameter::applyMonophonicModulation (double modulationValue)

@@ -55,22 +55,22 @@ namespace ParamUtils
         return range;
     }
 
-    /** Helper method for creating frequency parameters */
-    void createFreqParameter (Parameters& params, const ParameterID& id, const juce::String& name, float min, float max, float centre, float defaultValue);
-
-    /** Helper method for creating percent parameters */
-    void createPercentParameter (Parameters& params, const ParameterID& id, const juce::String& name, float defaultValue);
-
-    /** Helper method for creating bipolar percent parameters */
-    void createBipolarPercentParameter (Parameters& params, const ParameterID& id, const juce::String& name, float defaultValue = 0.0f);
-
-    /** Helper method for creating gain parameters in Decibels */
-    void createGainDBParameter (Parameters& params, const ParameterID& id, const juce::String& name, float min, float max, float defaultValue, float centerValue = -1000.0f);
-
-    /** Helper method for creating time parameters in milliseconds */
-    void createTimeMsParameter (Parameters& params, const ParameterID& id, const juce::String& name, const juce::NormalisableRange<float>& range, float defaultValue);
-
-    /** Helper method for creating ratio parameters */
-    void createRatioParameter (Parameters& params, const ParameterID& id, const juce::String& name, const juce::NormalisableRange<float>& range, float defaultValue = 1.0f);
+//    /** Helper method for creating frequency parameters */
+//    void createFreqParameter (Parameters& params, const ParameterID& id, const juce::String& name, float min, float max, float centre, float defaultValue,  std::atomic<float> *valuePtr);
+//
+//    /** Helper method for creating percent parameters */
+//    void createPercentParameter (Parameters& params, const ParameterID& id, const juce::String& name, float defaultValue,  std::atomic<float> *valuePtr);
+//
+//    /** Helper method for creating bipolar percent parameters */
+//    void createBipolarPercentParameter (Parameters& params, const ParameterID& id, const juce::String& name, float defaultValue = 0.0f,  std::atomic<float> *valuePtr = nullptr);
+//
+//    /** Helper method for creating gain parameters in Decibels */
+//    void createGainDBParameter (Parameters& params, const ParameterID& id, const juce::String& name, float min, float max, float defaultValue,  std::atomic<float> *valuePtr, float centerValue = -1000.0f);
+//
+//    /** Helper method for creating time parameters in milliseconds */
+//    void createTimeMsParameter (Parameters& params, const ParameterID& id, const juce::String& name, const juce::NormalisableRange<float>& range, float defaultValue,  std::atomic<float> *valuePtr);
+//
+//    /** Helper method for creating ratio parameters */
+//    void createRatioParameter (Parameters& params, const ParameterID& id, const juce::String& name, const juce::NormalisableRange<float>& range, float defaultValue = 1.0f,  std::atomic<float> *valuePtr = nullptr);
 } // namespace ParamUtils
 } // namespace chowdsp
