@@ -73,6 +73,11 @@ public:
     /** Returns the current parameter value accounting for any modulation that is currently applied. */
     operator float() const noexcept { return getCurrentValue(); } // NOSONAR, NOLINT(google-explicit-constructor): we want to be able to do implicit conversion here
 
+    /** Print debug info. */
+    void printDebug() const
+    {
+        DBG(paramID + " : " + juce::String(get()));
+    }
 private:
     const float unsnappedDefault;
     const juce::NormalisableRange<float> normalisableRange;
@@ -91,6 +96,10 @@ public:
         : juce::AudioParameterChoice (parameterID, parameterName, parameterChoices, defaultItemIndex),
           defaultChoiceIndex (defaultItemIndex)
     {
+    }
+    void printDebug() const
+    {
+        DBG(paramID + " : " + juce::String(getIndex())); // Using getIndex() for ChoiceParameter
     }
 
     using Ptr = OptionalPointer<ChoiceParameter>;
@@ -135,6 +144,10 @@ public:
     {
         return magic_enum::enum_value<EnumType> ((size_t) getIndex());
     }
+    void printDebug() const
+    {
+        DBG(paramID + " : " + juce::String(static_cast<int>(get())));
+    }
 
     using Ptr = OptionalPointer<EnumChoiceParameter>;
 
@@ -151,7 +164,10 @@ public:
         : juce::AudioParameterBool (parameterID, parameterName, defaultBoolValue)
     {
     }
-
+    void printDebug() const
+    {
+        DBG(paramID + " : " + juce::String(static_cast<int>(get())));
+    }
     using Ptr = OptionalPointer<BoolParameter>;
 
 private:
