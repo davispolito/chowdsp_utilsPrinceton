@@ -199,19 +199,12 @@ void ParamHolder::deserialize (typename Serializer::DeserializedType deserial, P
     {
         DBG ("deserialzied " + id);
     }
-    // set all un-matched objects to their default values
-    if (! paramIDsThatHaveBeenDeserialized.empty())
-    {
-        paramHolder.doForAllParameters (
-            [&paramIDsThatHaveBeenDeserialized] (auto& param, size_t)
-            {
-                if (std::find (paramIDsThatHaveBeenDeserialized.begin(),
-                               paramIDsThatHaveBeenDeserialized.end(),
-                               std::string_view { param.paramID.toRawUTF8(), param.paramID.getNumBytesAsUTF8() })
-                    == paramIDsThatHaveBeenDeserialized.end())
-                    ParameterTypeHelpers::resetParameter (param);
-            });
-    }
+       paramHolder.doForAllParameters (
+        [&paramIDsThatHaveBeenDeserialized] (auto& param, size_t)
+        {
+            if (! paramIDsThatHaveBeenDeserialized.contains (param.paramID))
+                ParameterTypeHelpers::resetParameter (param);
+        });
 }
 
 inline void ParamHolder::applyVersionStreaming (const Version& version)

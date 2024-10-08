@@ -34,7 +34,7 @@ inline void NonParamState::validateStateValues() const
 template <typename Serializer>
 typename Serializer::SerializedType NonParamState::serialize (const NonParamState& state)
 {
-    auto serial = Serializer::createBaseElement ("nonparam");
+    auto serial = Serializer::createBaseElement("nonparam");
     for (const auto& value : state.values)
         value->serialize (serial);
     return serial;
@@ -54,7 +54,7 @@ void NonParamState::deserialize (typename Serializer::DeserializedType deserial,
             //const auto valueDeserial = Serializer::getChildElement (deserial, i + 1);
             for (auto& value : state.values)
             {
-                if (name == value->name)
+                if (name == toString (value->name))
                 {
                     value->deserialize (deserial);
                     namesThatHaveBeenDeserialized.add (name);
@@ -66,18 +66,15 @@ void NonParamState::deserialize (typename Serializer::DeserializedType deserial,
     {
         jassertfalse; // state loading error
     }
-    for (auto id : namesThatHaveBeenDeserialized)
+    for(auto id: namesThatHaveBeenDeserialized)
     {
-        DBG ("nonparam " + id);
+        DBG("nonparam " + id);
     }
     // set all un-matched objects to their default values
-    if (! namesThatHaveBeenDeserialized.empty())
+    for (auto& value : state.values)
     {
-        for (auto& value : state.values)
-        {
-            if (std::find (namesThatHaveBeenDeserialized.begin(), namesThatHaveBeenDeserialized.end(), value->name) == namesThatHaveBeenDeserialized.end())
-                value->reset();
-        }
+        if (! namesThatHaveBeenDeserialized.contains (toString (value->name)))
+            value->reset();
     }
 }
 

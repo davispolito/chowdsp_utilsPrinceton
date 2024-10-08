@@ -63,7 +63,7 @@ public:
     template <typename Serializer>
     static typename Serializer::SerializedType serialize (const Version& object)
     {
-        return Serializer::template serialize<Serializer> (object.getVersionString());
+//        return Serializer::template serialize<Serializer> (object.getVersionString());
     }
 
     /** Custom deserializer */
