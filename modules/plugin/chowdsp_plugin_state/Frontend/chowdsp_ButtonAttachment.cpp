@@ -33,6 +33,7 @@ void ButtonAttachment::setValue (bool newValue)
     {
         juce::ScopedValueSetter svs { skipClickCallback, true };
         button->setToggleState (newValue, juce::sendNotificationSync);
+        attachment.param->setFunc(attachment.param->convertTo0to1(newValue));
     }
 }
 

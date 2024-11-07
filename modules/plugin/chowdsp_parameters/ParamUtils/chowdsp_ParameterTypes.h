@@ -161,16 +161,18 @@ class BoolParameter : public juce::AudioParameterBool,
                       public ParamUtils::ModParameterMixin
 {
 public:
-    BoolParameter (const ParameterID& parameterID, const juce::String& parameterName, bool defaultBoolValue)
-        : juce::AudioParameterBool (parameterID, parameterName, defaultBoolValue)
+    BoolParameter (const ParameterID& parameterID, const juce::String& parameterName, bool defaultBoolValue, std::atomic<float>* valuePtr,
+                    const std::function<void ( float)>& setterFunc)
+        : juce::AudioParameterBool (parameterID, parameterName,  defaultBoolValue, valuePtr)
     {
+        setFunc = std::move(setterFunc);
     }
     void printDebug() const
     {
         DBG(paramID + " : " + juce::String(static_cast<int>(get())));
     }
     using Ptr = OptionalPointer<BoolParameter>;
-
+    std::function<void ( float)> setFunc;
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BoolParameter)
 };
