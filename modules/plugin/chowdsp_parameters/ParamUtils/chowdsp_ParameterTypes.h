@@ -52,7 +52,7 @@ public:
                     const juce::NormalisableRange<float>& valueRange,
                     float defaultFloatValue,
                     std::atomic<float>* valuePtr,
-                    const std::function<void (void*, float)>& setterFunc,
+                    const std::function<void ( float)>& setterFunc,
                     const std::function<juce::String (float)>& valueToTextFunction,
                     std::function<float (const juce::String&)>&& textToValueFunction);
 
@@ -78,10 +78,11 @@ public:
     {
         DBG(paramID + " : " + juce::String(get()));
     }
+    std::function<void ( float)> setFunc;
 private:
     const float unsnappedDefault;
     const juce::NormalisableRange<float> normalisableRange;
-    std::function<void (void*, float)> setFunc;
+
     float modulationAmount = 0.0f;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FloatParameter)
@@ -181,7 +182,7 @@ public:
     PercentParameter (const ParameterID& parameterID,
                       const juce::String& paramName,
                       std::atomic<float> *valuePtr,
-                      const std::function<void (void*, float)>& setterFunc,
+                      const std::function<void (float)>& setterFunc,
                       float defaultValue = 0.5f,
                       bool isBipolar = false)
         : FloatParameter (parameterID,
@@ -208,7 +209,7 @@ public:
     GainDBParameter (const ParameterID& parameterID,
                      const juce::String& paramName,
                      std::atomic<float> *valuePtr,
-                     const std::function<void (void*, float)>& setterFunc,
+                     const std::function<void ( float)>& setterFunc,
                      const juce::NormalisableRange<float>& paramRange,
                      float defaultValue)
         : FloatParameter (parameterID,
@@ -235,7 +236,7 @@ public:
     FreqHzParameter (const ParameterID& parameterID,
                      const juce::String& paramName,
                      std::atomic<float> *valuePtr,
-                     const std::function<void (void*, float)>& setterFunc,
+                     const std::function<void (float)>& setterFunc,
                      const juce::NormalisableRange<float>& paramRange,
                      float defaultValue)
         : FloatParameter (parameterID,
@@ -262,7 +263,7 @@ public:
     TimeMsParameter (const ParameterID& parameterID,
                      const juce::String& paramName,
                      std::atomic<float> *valuePtr,
-                     const std::function<void (void*, float)>& setterFunc,
+                     const std::function<void ( float)>& setterFunc,
                      const juce::NormalisableRange<float>& paramRange,
                      float defaultValue)
         : FloatParameter (parameterID,
@@ -289,7 +290,7 @@ public:
     RatioParameter (const ParameterID& parameterID,
                     const juce::String& paramName,
                     std::atomic<float> *valuePtr,
-                    const std::function<void (void*, float)>& setterFunc,
+                    const std::function<void ( float)>& setterFunc,
                     const juce::NormalisableRange<float>& paramRange,
                     float defaultValue)
         : FloatParameter (parameterID,
@@ -316,7 +317,7 @@ public:
     SemitonesParameter (const ParameterID& parameterID,
                         const juce::String& paramName,
                         std::atomic<float> *valuePtr,
-                        const std::function<void (void*, float)>& setterFunc,
+                        const std::function<void ( float)>& setterFunc,
                         juce::NormalisableRange<float> paramRange,
                         float defaultValue,
                         bool snapToInt = false)

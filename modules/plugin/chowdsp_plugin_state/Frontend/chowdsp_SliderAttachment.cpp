@@ -85,6 +85,7 @@ void SliderAttachment::setValue (float newValue)
     {
         juce::ScopedValueSetter svs { skipSliderChangedCallback, true };
         slider->setValue (newValue, juce::sendNotificationSync);
+        attachment.param->setFunc(attachment.param->convertTo0to1(newValue));
     }
 }
 

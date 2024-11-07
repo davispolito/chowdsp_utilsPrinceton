@@ -9,7 +9,7 @@ FloatParameter::FloatParameter (const ParameterID& parameterID,
                                 const juce::NormalisableRange<float>& valueRange,
                                 float defaultFloatValue,
                                 std::atomic<float>* valuePtr,
-                                const std::function<void (void*, float)>& setterFunc,
+                                const std::function<void ( float)>& setterFunc,
                                 const std::function<juce::String (float)>& valueToTextFunction,
                                 std::function<float (const juce::String&)>&& textToValueFunction)
 #if JUCE_VERSION < 0x070000

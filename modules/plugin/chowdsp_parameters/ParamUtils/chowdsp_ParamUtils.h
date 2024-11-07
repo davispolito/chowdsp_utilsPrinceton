@@ -54,6 +54,15 @@ namespace ParamUtils
 
         return range;
     }
+    /** Useful method for creating a juce::NormalisableRange with a centre value */
+    template <typename T>
+    juce::NormalisableRange<T> createNormalisableRange (T start, T end, T centre, T intervalVal)
+    {
+        auto range = juce::NormalisableRange { start, end , intervalVal};
+        range.setSkewForCentre (centre);
+
+        return range;
+    }
 
 //    /** Helper method for creating frequency parameters */
 //    void createFreqParameter (Parameters& params, const ParameterID& id, const juce::String& name, float min, float max, float centre, float defaultValue,  std::atomic<float> *valuePtr);
