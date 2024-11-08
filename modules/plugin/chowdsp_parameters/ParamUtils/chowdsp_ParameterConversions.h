@@ -27,4 +27,7 @@ juce::String floatValToStringDecimal (float floatVal)
     return { floatVal, NumDecimalPlaces, false };
 }
 float stringToFloatVal (const juce::String& s);
+
+float freqStringToMidiVal (const juce::String& s);
+juce::String midiValToFreqString(float);
 } // namespace chowdsp::ParamUtils

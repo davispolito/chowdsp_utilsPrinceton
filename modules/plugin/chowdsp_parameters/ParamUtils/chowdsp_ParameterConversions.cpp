@@ -19,6 +19,34 @@ float stringToFreqVal (const juce::String& s)
 
     return freqVal;
 }
+static inline float mtof(float f)
+{
+    if (f <= -1500.0f) return(0);
+    else if (f > 1499.0f) return(mtof(1499.0f));
+    else return (8.17579891564f * expf(0.0577622650f * f));
+}
+juce::String midiValToFreqString (float midiVal)
+{
+    float freqVal = mtof(midiVal);
+    if (freqVal <= 1000.0f)
+        return juce::String (freqVal, 2, false) + " Hz";
+
+    return juce::String (freqVal / 1000.0f, 2, false) + " kHz";
+}
+
+inline float ftom(float f)
+{
+    return (f > 0 ? 17.3123405046f * logf(.12231220585f * f) : -1500.0f);
+}
+float freqStringToMidiVal (const juce::String& s)
+{
+    auto freqVal = s.getFloatValue();
+
+    if (s.getLastCharacter() == 'k' || s.endsWith ("kHz") || s.endsWith ("khz"))
+        freqVal *= 1000.0f;
+
+    return ftom(freqVal);
+}
 
 juce::String percentValToString (float percentVal)
 {

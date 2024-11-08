@@ -210,10 +210,10 @@ class GainDBParameter : public FloatParameter
 public:
     GainDBParameter (const ParameterID& parameterID,
                      const juce::String& paramName,
-                     std::atomic<float> *valuePtr,
-                     const std::function<void ( float)>& setterFunc,
                      const juce::NormalisableRange<float>& paramRange,
-                     float defaultValue)
+                     float defaultValue,
+                     std::atomic<float> *valuePtr,
+                     const std::function<void ( float)>& setterFunc)
         : FloatParameter (parameterID,
                           paramName,
                           paramRange,
@@ -237,10 +237,10 @@ class FreqHzParameter : public FloatParameter
 public:
     FreqHzParameter (const ParameterID& parameterID,
                      const juce::String& paramName,
-                     std::atomic<float> *valuePtr,
-                     const std::function<void (float)>& setterFunc,
                      const juce::NormalisableRange<float>& paramRange,
-                     float defaultValue)
+                     float defaultValue,
+                     std::atomic<float> *valuePtr,
+                     const std::function<void (float)>& setterFunc)
         : FloatParameter (parameterID,
                           paramName,
                           paramRange,
@@ -256,6 +256,33 @@ public:
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FreqHzParameter)
+};
+
+
+class MidiHzParameter : public FloatParameter
+{
+public:
+    MidiHzParameter (const ParameterID& parameterID,
+                     const juce::String& paramName,
+                     const juce::NormalisableRange<float>& paramRange,
+                     float defaultValue,
+                     std::atomic<float> *valuePtr,
+                     const std::function<void (float)>& setterFunc)
+        : FloatParameter (parameterID,
+                          paramName,
+                          paramRange,
+                          defaultValue,
+                          valuePtr,
+                          setterFunc,
+                          &ParamUtils::midiValToFreqString,
+                          &ParamUtils::freqStringToMidiVal)
+    {
+    }
+
+    using Ptr = OptionalPointer<MidiHzParameter>;
+
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiHzParameter)
 };
 
 /** A float parameter which specifically stores a time value in milliseconds. */
